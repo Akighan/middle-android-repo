@@ -1,5 +1,6 @@
 package com.example.androidpracticumcustomview.ui.theme
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -7,12 +8,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 
-/*
-Задание:
-Реализуйте необходимые компоненты.
-*/
-
+@Preview
 @Composable
 fun MainScreen() {
     Scaffold { paddingValues ->
@@ -21,15 +20,12 @@ fun MainScreen() {
                 .fillMaxSize()
                 .padding(paddingValues), contentAlignment = Alignment.Center
         ) {
-
             CustomContainerCompose(
                 firstChild = {
-                    // TODO
-                    // ...
+                    Box(Modifier.fillMaxSize().background(Color.Red))
                 },
                 secondChild = {
-                    // TODO
-                    // ...
+                    Box(Modifier.fillMaxSize().background(Color.Blue))
                 }
             )
         }
