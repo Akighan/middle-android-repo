@@ -21,6 +21,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.androidpracticumcustomview.MainActivity.ScreenState.ComposeUI
+import com.example.androidpracticumcustomview.MainActivity.ScreenState.CustomView
+import com.example.androidpracticumcustomview.MainActivity.ScreenState.Unselected
 import com.example.androidpracticumcustomview.ui.theme.CustomContainer
 import com.example.androidpracticumcustomview.ui.theme.MainScreen
 
@@ -39,12 +42,12 @@ class MainActivity : ComponentActivity() {
 
         val firstView = TextView(this).apply {
             setBackgroundColor(Color.RED)
-            text = "CUSTOM VIEW FIRST ELEMENT"
+            text = context.getText(R.string.main_activity_first_view)
         }
 
         val secondView = TextView(this).apply {
             setBackgroundColor(Color.BLUE)
-            text = "CUSTOM VIEW SECOND ELEMENT"
+            text = context.getText(R.string.main_activity_second_view)
         }
 
         customContainer.addView(firstView)
@@ -57,28 +60,39 @@ class MainActivity : ComponentActivity() {
     @Preview
     @Composable
     fun ChooseScreen() {
-        var showComposeScreen by remember { mutableStateOf(false) }
-        var showCustomViewScreen by remember { mutableStateOf(false) }
+        var showComposeScreen: ScreenState by remember { mutableStateOf(Unselected) }
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            Button(onClick = { showComposeScreen = true }) {
-                Text("Открыть Compose UI")
+        when (showComposeScreen) {
+            Unselected -> {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Button(onClick = { showComposeScreen = ComposeUI }) {
+                        Text(applicationContext.getString(R.string.main_activity_open_compose))
+                    }
+                    Button(onClick = { showComposeScreen = CustomView }) {
+                        Text(applicationContext.getString(R.string.main_activity_open_custom_view))
+                    }
+                }
             }
-            Button(onClick = { showCustomViewScreen = true }) {
-                Text("Открыть Custom View")
+
+            ComposeUI -> {
+                MainScreen()
+            }
+
+            CustomView -> {
+                LaunchedEffect(key1 = Unit) {
+                    startXmlPracticum()
+                }
             }
         }
+    }
 
-        if (showComposeScreen) {
-            MainScreen()
-        } else if (showCustomViewScreen){
-            LaunchedEffect(key1 = Unit) {
-                startXmlPracticum()
-            }
-        }
+    sealed class ScreenState {
+        data object Unselected : ScreenState()
+        data object ComposeUI : ScreenState()
+        data object CustomView : ScreenState()
     }
 }

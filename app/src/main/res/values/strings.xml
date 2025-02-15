@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">android practicum custom view</string>
+    <string name="main_activity_first_view">CUSTOM VIEW FIRST ELEMENT</string>
+    <string name="main_activity_second_view">CUSTOM VIEW SECOND ELEMENT</string>
+    <string name="main_activity_open_compose">Открыть Compose UI</string>
+    <string name="main_activity_open_custom_view">Открыть Custom View</string>
 </resources>
